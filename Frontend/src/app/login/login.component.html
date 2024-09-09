@@ -2,18 +2,35 @@
   <div class="login-left">
     <h2>Login! 👋</h2>
     <p>How do I get started?</p>
-    <button class="btn btn-google">Sign in with Google</button>
+
+    <!-- Botón de Google: se vincula con el método loginWithGoogle() -->
+    <button class="btn btn-google" (click)="loginWithGoogle()">Sign in with Google</button>
+
+    <!-- Botón de Apple (por ahora no tiene funcionalidad) -->
     <button class="btn btn-apple">Sign in with Apple</button>
+
     <p>or Login with Email</p>
-    <form>
+
+    <!-- Formulario de Login con Email -->
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <label for="email">Email</label>
-      <input type="email" id="email" name="email" placeholder="test@atheros.ai">
+      <input type="email" id="email" formControlName="username" placeholder="test@atheros.ai">
+      <div *ngIf="loginForm.controls['username'].invalid && loginForm.controls['username'].touched">
+        <small>Email es requerido y debe ser válido.</small>
+      </div>
+
       <label for="password">Password</label>
-      <input type="password" id="password" name="password" placeholder="******">
-      <button type="submit" class="btn btn-signin">Sign In</button>
+      <input type="password" id="password" formControlName="password" placeholder="******">
+      <div *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">
+        <small>Contraseña es requerida (mínimo 6 caracteres).</small>
+      </div>
+
+      <button type="submit" class="btn btn-signin" [disabled]="loginForm.invalid">Sign In</button>
     </form>
+
     <p>Don't have an account? <a href="#">Sign Up Now</a></p>
   </div>
+  
   <div class="login-right">
     <div class="login-info">
       <h3>Why should I login?</h3>
