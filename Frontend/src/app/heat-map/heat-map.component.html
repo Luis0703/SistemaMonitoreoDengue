@@ -1,0 +1,54 @@
+<div class="heat-map-container">
+    <header>
+      <div class="logo">SAVID</div>
+      <nav>
+        <a href="#">Inicio</a>
+        <a href="#">Mapa de Calor</a>
+        <a href="#">Predicciones</a>
+        <a href="#">Reportes</a>
+        <a href="#">Acerca de</a>
+      </nav>
+      <button class="login-btn">Login →</button>
+    </header>
+  
+    <main>
+      <h1>{{ title }}</h1>
+      <div class="content">
+        <div class="filters">
+          <div class="filter-item">
+            <label for="timePeriod">Periodo de tiempo o Fecha</label>
+            <select id="timePeriod" [(ngModel)]="timePeriod">
+              <option value="">Seleccionar</option>
+              <!-- Add options here -->
+            </select>
+          </div>
+          <div class="filter-item">
+            <label for="department">Departamento</label>
+            <select id="department" [(ngModel)]="department">
+              <option value="">Seleccionar</option>
+              <!-- Add options here -->
+            </select>
+          </div>
+          <div class="filter-item">
+            <label for="province">Provincia</label>
+            <select id="province" [(ngModel)]="province">
+              <option value="">Seleccionar</option>
+              <!-- Add options here -->
+            </select>
+          </div>
+          <div class="filter-item">
+            <label for="district">Distrito</label>
+            <select id="district" [(ngModel)]="district">
+              <option value="">Seleccionar</option>
+              <!-- Add options here -->
+            </select>
+          </div>
+          <button (click)="onSearch()">Buscar</button>
+        </div>
+        <div class="map-container">
+          <!-- Placeholder for Google Maps integration -->
+          <div class="map-placeholder">Mapa se integrará aquí</div>
+        </div>
+      </div>
+    </main>
+  </div>
