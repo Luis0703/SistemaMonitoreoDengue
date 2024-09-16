@@ -69,16 +69,13 @@
         }
   
         .map-container {
-          flex-grow: 1;
-  
-          .map-placeholder {
-            background-color: #f0f0f0;
-            height: 500px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-style: italic;
-          }
+          height: 500px;
+          width: 100%;
+        }
+        
+        google-map {
+          height: 100%;
+          width: 100%;
         }
       }
     }
