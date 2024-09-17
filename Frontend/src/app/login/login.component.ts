@@ -30,5 +30,5 @@ export class LoginComponent {
   // Función para manejar el login con Google
   loginWithGoogle(): void {
     this.authService.loginWithGoogle();
-  }
+  }
 }
