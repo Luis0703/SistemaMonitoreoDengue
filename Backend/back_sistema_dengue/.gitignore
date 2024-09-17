@@ -1,0 +1,3 @@
+venv/
+#los pycache
+__pycache__/
