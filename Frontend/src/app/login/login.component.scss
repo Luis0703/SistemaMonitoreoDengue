@@ -9,7 +9,7 @@
 }
 
 .login-left {
-  background-image: url('path/to/mosquito-image.jpg');
+  background-image: url('../../assets/images/dengue.jpg');
   background-size: cover;
   background-position: center;
   color: white;
@@ -59,14 +59,17 @@
   width: 100%;
   padding: 0.75rem;
   border: 1px solid #ccc;
-  border-radius: 20px;
+  border-radius: 30px; /* Cambiado de 20px a 30px */
   background-color: white;
   color: #757575;
   margin-bottom: 1rem;
+  font-weight: bold; /* Para que coincida con el estilo de Figma */
 }
 
 .btn-google img {
   margin-right: 0.5rem;
+  width: 20px; /* Ajusta el tamaño de la imagen para que sea más proporcional */
+  height: 20px;
 }
 
 .login-right form input {
