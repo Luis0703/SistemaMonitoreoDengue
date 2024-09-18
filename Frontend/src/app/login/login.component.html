@@ -1,45 +1,45 @@
 <div class="login-container">
   <div class="login-left">
-    <h2>Login! 👋</h2>
-    <p>How do I get started?</p>
-
-    <!-- Botón de Google: se vincula con el método loginWithGoogle() -->
-    <button class="btn btn-google" (click)="loginWithGoogle()">Sign in with Google</button>
-
-    <!-- Botón de Apple (por ahora no tiene funcionalidad) -->
-    <button class="btn btn-apple">Sign in with Apple</button>
-
-    <p>or Login with Email</p>
-
-    <!-- Formulario de Login con Email -->
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <label for="email">Email</label>
-      <input type="email" id="email" formControlName="username" placeholder="test@atheros.ai">
-      <div *ngIf="loginForm.controls['username'].invalid && loginForm.controls['username'].touched">
-        <small>Email es requerido y debe ser válido.</small>
-      </div>
-
-      <label for="password">Password</label>
-      <input type="password" id="password" formControlName="password" placeholder="******">
-      <div *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">
-        <small>Contraseña es requerida (mínimo 6 caracteres).</small>
-      </div>
-
-      <button type="submit" class="btn btn-signin" [disabled]="loginForm.invalid">Sign In</button>
-    </form>
-
-    <p>Don't have an account? <a href="#">Sign Up Now</a></p>
+    <!-- Mantenemos la parte izquierda como está -->
+    <h1>SAVID</h1>
+    <h2>Sistema de Alerta y Vigilancia del Dengue</h2>
+    <p>Accede a reportes y predicciones actualizadas para enfrentar el dengue de manera efectiva. ¡Mantente informado y alerta!</p>
   </div>
   
   <div class="login-right">
-    <div class="login-info">
-      <h3>Why should I login?</h3>
-      <p>By logging in, you can access your personal dashboard, where you can manage your account, view your profile, and much more.</p>
-      <img src="assets/dashboard-example.png" alt="Dashboard example">
+    <h2>Iniciar sesión</h2>
+
+    <!-- Botón de Google estilizado -->
+    <button class="btn btn-google" (click)="loginWithGoogle()">
+      <img src="assets/google-logo.png" alt="Google logo">
+      Continua con Google 
+    </button>
+
+    <div class="divider">
+      <span>o</span>
     </div>
+
+    <!-- Formulario de Login con Email -->
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="email">Usuario o correo electrónico</label>
+        <input type="email" id="email" formControlName="username">
+      </div>
+
+      <div class="form-group">
+        <label for="password">Contraseña</label>
+        <input type="password" id="password" formControlName="password">
+      </div>
+
+      <div class="form-group text-right">
+        <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+      </div>
+
+      <button type="submit" class="btn btn-signin" [disabled]="loginForm.invalid">Iniciar Sesión</button>
+    </form>
+
+    <p class="signup-link">¿No tienes una cuenta? <a href="#">Regístrate</a></p>
   </div>
 </div>
-
-
 
 
