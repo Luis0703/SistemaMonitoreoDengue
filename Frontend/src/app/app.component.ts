@@ -16,6 +16,6 @@ export class AppComponent {
   isLoggedIn = false;
 
    onLoginSuccess(){
-    this.isLoggedIn
+    this.isLoggedIn=true
    }
 }
