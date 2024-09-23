@@ -46,8 +46,13 @@
           <button (click)="onSearch()">Buscar</button>
         </div>
         <div class="map-container">
-          <!-- Placeholder for Google Maps integration -->
-          <div class="map-placeholder">Mapa se integrará aquí</div>
+          <google-map
+            height="100%"
+            width="100%"
+            [center]="center"
+            [zoom]="zoom"
+            [options]="options">
+          </google-map>
         </div>
       </div>
     </main>

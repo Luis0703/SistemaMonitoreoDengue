@@ -19,11 +19,16 @@
       <span>o</span>
     </div>
 
+    <!-- Mostrar mensaje de error -->
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
     <!-- Formulario de Login con Email -->
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <label for="email">Usuario o correo electrónico</label>
-        <input type="email" id="email" formControlName="username">
+        <label for="username">Usuario o correo electrónico</label>
+        <input type="text" id="username" formControlName="username">
       </div>
 
       <div class="form-group">
@@ -41,5 +46,3 @@
     <p class="signup-link">¿No tienes una cuenta? <a href="#">Regístrate</a></p>
   </div>
 </div>
-
-
