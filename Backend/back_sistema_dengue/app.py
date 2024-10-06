@@ -1,6 +1,12 @@
 from flask import Flask
 from routes.casos_dengue_routes import casos_dengue_routes
 from routes.usuarios_routes import usuarios_routes
+from routes.region_routes import region_routes
+from routes.caso_routes import caso_routes
+from routes.brote_routes import brote_routes
+from routes.reporte_routes import reporte_routes
+from routes.notificacion_routes import notificacion_routes
+from routes.predicciones_routes import predicciones_routes
 from flask_sqlalchemy import SQLAlchemy
 from config import DATABASE_CONNECTION_URI
 from flask_cors import CORS
@@ -30,6 +36,12 @@ jwt = JWTManager(app)  # Inicializa JWTManager
 
 app.register_blueprint(casos_dengue_routes)
 app.register_blueprint(usuarios_routes)  # Registra las rutas de usuarios
+app.register_blueprint(region_routes)
+app.register_blueprint(caso_routes)
+app.register_blueprint(brote_routes)
+app.register_blueprint(reporte_routes)
+app.register_blueprint(notificacion_routes)
+app.register_blueprint(predicciones_routes)
 
 if __name__ == '__main__':
     app.run(debug=True)
