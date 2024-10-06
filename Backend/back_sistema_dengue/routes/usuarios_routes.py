@@ -1,11 +1,9 @@
-# routes/usuarios_routes.py
 from flask import Blueprint, request, jsonify, make_response
 from utils.db import db
 from models.usuarios import Usuario
 from schemas.usuarios_schema import usuario_schema, usuarios_schema
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import jwt_required, get_jwt_identity
-
 
 usuarios_routes = Blueprint("usuarios_routes", __name__)
 
@@ -19,20 +17,20 @@ def get_usuarios():
 # Crear un nuevo usuario
 @usuarios_routes.route('/usuarios', methods=['POST'])
 def add_usuario():
-    nombre_usuario = request.json.get('nombre_usuario')
-    email = request.json.get('email')
-    contrasena = request.json.get('contrasena')  # Asegúrate de recibir 'contrasena', no 'contrasena_hash'
-    
-    if not nombre_usuario or not email or not contrasena:
+    nombre = request.json.get('Nombre')
+    correo_electronico = request.json.get('CorreoElectronico')
+    contrasena = request.json.get('Contrasena')  # Asegúrate de recibir 'Contrasena', no 'ContrasenaHash'
+
+    if not nombre or not correo_electronico or not contrasena:
         return make_response(jsonify({'message': 'Faltan datos', 'status': 400}), 400)
     
-    # Verificar si el usuario o email ya existen
-    if Usuario.query.filter_by(nombre_usuario=nombre_usuario).first():
+    # Verificar si el nombre o correo ya existen
+    if Usuario.query.filter_by(Nombre=nombre).first():
         return make_response(jsonify({'message': 'El nombre de usuario ya existe', 'status': 400}), 400)
-    if Usuario.query.filter_by(email=email).first():
+    if Usuario.query.filter_by(CorreoElectronico=correo_electronico).first():
         return make_response(jsonify({'message': 'El email ya está registrado', 'status': 400}), 400)
     
-    new_usuario = Usuario(nombre_usuario, email, contrasena)
+    new_usuario = Usuario(nombre, correo_electronico,contrasena)
     
     try:
         db.session.add(new_usuario)
@@ -54,16 +52,16 @@ def get_usuario(id):
 @usuarios_routes.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
-    nombre_usuario = data.get('nombre_usuario')
-    contrasena = data.get('contrasena')
+    nombre = data.get('username')
+    contrasena = data.get('password')
 
-    if not nombre_usuario or not contrasena:
+    if not nombre or not contrasena:
         return jsonify({'message': 'Faltan datos', 'status': 400}), 400
 
-    usuario = Usuario.query.filter_by(nombre_usuario=nombre_usuario).first()
+    usuario = Usuario.query.filter_by(Nombre=nombre).first()
 
     if usuario and usuario.verificar_contrasena(contrasena):
-        access_token = create_access_token(identity=usuario.id)
+        access_token = create_access_token(identity=usuario.IdUsuario)
         return jsonify({'message': 'Inicio de sesión exitoso', 'status': 200, 'access_token': access_token}), 200
     else:
         return jsonify({'message': 'Nombre de usuario o contraseña incorrectos', 'status': 401}), 401

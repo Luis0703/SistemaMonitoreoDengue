@@ -5,7 +5,7 @@ from models.usuarios import Usuario
 class UsuarioSchema(ma.SQLAlchemySchema):
     class Meta:
         model = Usuario
-        fields = ('id', 'nombre_usuario', 'email', 'contrasena_hash')
+        fields = ('IdUsuario', 'Nombre', 'CorreoElectronico','Rol','contrasena_hash')
 
 usuario_schema = UsuarioSchema()
 usuarios_schema = UsuarioSchema(many=True)

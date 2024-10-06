@@ -27,24 +27,25 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      const { username, password } = this.loginForm.value;
-
+      const { username, password } = this.loginForm.value;  // Verifica que el nombre de estas variables coincida con lo esperado en el backend
+  
+      console.log({ username, password });  // Imprime para verificar que los datos estén correctos
+  
       this.authService.login(username, password).subscribe(
         (response) => {
-          // Guarda el token
           this.authService.setToken(response.access_token);
-          // Emitir el evento loginSuccess
           this.loginSuccess.emit();
-          // Navegar a la ruta heat-map
           this.router.navigate(['/heat-map']);
         },
         (error) => {
-          // Manejo de errores
           this.errorMessage = error.error.message || 'Error al iniciar sesión';
         }
       );
+    } else {
+      this.errorMessage = 'Faltan datos o los datos no son válidos';
     }
   }
+  
 
   // Función para manejar el login con Google
   loginWithGoogle(): void {

@@ -18,7 +18,8 @@ export class AuthService {
 
   // Nuevo método de inicio de sesión
   login(username: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, { nombre_usuario: username, contrasena: password });
+    return this.http.post(`${this.apiUrl}/login`, { username: username, password: password },{
+      headers: { 'Content-Type': 'application/json' }});
   }
 
   // Método para guardar el token
