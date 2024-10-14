@@ -1,6 +1,8 @@
 from flask import Blueprint, request, jsonify, make_response
 from utils.db import db
 from models.caso import Caso
+from models.region import Region
+
 from schemas.caso_schema import caso_schema, casos_schema  # Asegúrate de importar el schema
 
 caso_routes = Blueprint("caso_routes", __name__)
@@ -29,7 +31,7 @@ def add_caso():
         IdUbigeo=data.get('IdUbigeo'),
         Enfermedad=data.get('Enfermedad'),
         Diagnostico=data.get('Diagnostico'),
-        Año=data.get('Año'),
+        Anio=data.get('Anio'),
         Semana=data.get('Semana'),
         Edad=data.get('Edad'),
         TipoEdad=data.get('TipoEdad'),
@@ -54,7 +56,7 @@ def update_caso(id):
     caso.IdUbigeo = data.get('IdUbigeo', caso.IdUbigeo)
     caso.Enfermedad = data.get('Enfermedad', caso.Enfermedad)
     caso.Diagnostico = data.get('Diagnostico', caso.Diagnostico)
-    caso.Año = data.get('Año', caso.Año)
+    caso.Anio = data.get('Anio', caso.Anio)
     caso.Semana = data.get('Semana', caso.Semana)
     caso.Edad = data.get('Edad', caso.Edad)
     caso.TipoEdad = data.get('TipoEdad', caso.TipoEdad)
@@ -79,3 +81,45 @@ def delete_caso(id):
         return make_response(jsonify({'message': 'Caso eliminado con éxito', 'status': 200}), 200)
     except Exception as e:
         return make_response(jsonify({'message': 'Error al eliminar el caso', 'status': 500, 'error': str(e)}), 500)
+
+# Endpoint para obtener los datos del mapa de calor
+@caso_routes.route('/casos/mapa-calor', methods=['GET'])
+def get_casos_mapa_calor():
+    # Filtros opcionales
+    fecha_inicio = request.args.get('fecha_inicio')
+    fecha_fin = request.args.get('fecha_fin')
+    departamento = request.args.get('departamento')
+    provincia = request.args.get('provincia')
+    distrito = request.args.get('distrito')
+
+    # Base de la consulta: unir Caso y Región por el campo IdUbigeo
+    query = db.session.query(Region.Latitud, Region.Longitud, db.func.count(Caso.IdCaso).label('cantidad_casos')) \
+        .join(Caso, Caso.IdUbigeo == Region.IdUbigeo) \
+        .group_by(Region.Latitud, Region.Longitud)
+
+    # Aplicar filtros si están presentes
+    if fecha_inicio and fecha_fin:
+        query = query.filter(Caso.Anio >= fecha_inicio, Caso.Anio <= fecha_fin)
+    
+    if departamento:
+        query = query.filter(Region.Departamento == departamento)
+    
+    if provincia:
+        query = query.filter(Region.Provincia == provincia)
+    
+    if distrito:
+        query = query.filter(Region.Distrito == distrito)
+
+    # Ejecutar la consulta
+    resultados = query.all()
+
+    # Formatear los datos para el mapa de calor
+    heatmap_data = []
+    for resultado in resultados:
+        heatmap_data.append({
+            'lat': resultado.Latitud,
+            'lng': resultado.Longitud,
+            'cantidad_casos': resultado.cantidad_casos  # Cantidad de casos en ese lugar
+        })
+
+    return make_response(jsonify({'message': 'Datos del mapa de calor', 'status': 200, 'data': heatmap_data}), 200)

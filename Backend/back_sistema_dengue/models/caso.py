@@ -7,7 +7,7 @@ class Caso(db.Model):
     IdUbigeo = db.Column(db.Integer, nullable=False)  # Relación con la tabla Región
     Enfermedad = db.Column(db.String(100), nullable=False)
     Diagnostico = db.Column(db.String(255), nullable=False)
-    Año = db.Column(db.Integer, nullable=False)
+    Anio = db.Column(db.Integer, nullable=False)
     Semana = db.Column(db.Integer, nullable=False)
     Edad = db.Column(db.Integer, nullable=False)
     TipoEdad = db.Column(db.String(20), nullable=False)  # Tipo de edad (por ejemplo, "años", "meses")

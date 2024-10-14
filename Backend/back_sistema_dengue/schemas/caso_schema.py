@@ -4,7 +4,7 @@ from models.caso import Caso  # Asegúrate de importar el modelo "Caso"
 class CasoSchema(ma.SQLAlchemySchema):
     class Meta:
         model = Caso
-        fields = ('IdCaso', 'IdUbigeo', 'Enfermedad', 'Diagnostico', 'Año', 'Semana', 'Edad', 'TipoEdad', 'Sexo')  # Campos a serializar
+        fields = ('IdCaso', 'IdUbigeo', 'Enfermedad', 'Diagnostico', 'Anio', 'Semana', 'Edad', 'TipoEdad', 'Sexo')  # Campos a serializar
 
 # Esquemas para un solo caso y para varios casos
 caso_schema = CasoSchema()
