@@ -1,7 +1,9 @@
+# routes/region_routes.py
+
 from flask import Blueprint, request, jsonify, make_response
 from utils.db import db
 from models.region import Region  # Asegúrate de importar el modelo
-from schemas.region_schema import region_schema, regions_schema  # Asumiendo que tienes un schema definido
+from schemas.region_schema import region_schema, regions_schema  
 
 # Crear el Blueprint para las rutas de la región
 region_routes = Blueprint("region_routes", __name__)
@@ -76,3 +78,54 @@ def delete_region(id):
         return make_response(jsonify({'message': 'Región eliminada con éxito', 'status': 200}), 200)
     except Exception as e:
         return make_response(jsonify({'message': 'Error al eliminar la región', 'status': 500, 'error': str(e)}), 500)
+    
+# Nuevos Endpoints para los Filtros
+@region_routes.route('/departamentos', methods=['GET'])
+def get_departamentos():
+    departamentos = db.session.query(Region.Departamento).distinct().all()
+    departamentos_list = [dept[0] for dept in departamentos]
+    return jsonify({'departamentos': departamentos_list}), 200
+
+@region_routes.route('/provincias', methods=['GET'])
+def get_provincias():
+    departamento = request.args.get('departamento')
+    if not departamento:
+        return jsonify({'error': 'Parámetro "departamento" requerido'}), 400
+    provincias = db.session.query(Region.Provincia).filter_by(Departamento=departamento).distinct().all()
+    provincias_list = [prov[0] for prov in provincias]
+    return jsonify({'provincias': provincias_list}), 200
+
+@region_routes.route('/distritos', methods=['GET'])
+def get_distritos():
+    provincia = request.args.get('provincia')
+    if not provincia:
+        return jsonify({'error': 'Parámetro "provincia" requerido'}), 400
+    distritos = db.session.query(Region.Distrito).filter_by(Provincia=provincia).distinct().all()
+    distritos_list = [dist[0] for dist in distritos]
+    return jsonify({'distritos': distritos_list}), 200
+
+# Obtener latitud y longitud de una región basada en los filtros
+@region_routes.route('/regiones/coords', methods=['GET'])
+def get_region_coords():
+    departamento = request.args.get('departamento')
+    provincia = request.args.get('provincia')
+    distrito = request.args.get('distrito')
+
+    # Construir la consulta dinámica basada en los filtros proporcionados
+    query = Region.query
+
+    if distrito:
+        query = query.filter_by(Distrito=distrito)
+    elif provincia:
+        query = query.filter_by(Provincia=provincia)
+    elif departamento:
+        query = query.filter_by(Departamento=departamento)
+
+    # Obtener la primera región que coincida con los filtros
+    region = query.first()
+
+    if not region:
+        return jsonify({'error': 'Región no encontrada'}), 404
+
+    # Devolver latitud y longitud
+    return jsonify({'lat': region.Latitud, 'lng': region.Longitud}), 200

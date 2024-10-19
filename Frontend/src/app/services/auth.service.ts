@@ -41,4 +41,17 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('access_token');
   }
+
+  getDepartamentos(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/departamentos`);
+  }
+
+  getProvincias(departamento: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/provincias?departamento=${departamento}`);
+  }
+
+  getDistritos(provincia: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/distritos?provincia=${provincia}`);
+  }
+  
 }

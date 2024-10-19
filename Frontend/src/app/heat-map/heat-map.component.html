@@ -1,59 +1,86 @@
 <div class="heat-map-container">
-    <header>
-      <div class="logo">SAVID</div>
-      <nav>
-        <a href="#">Inicio</a>
-        <a href="#">Mapa de Calor</a>
-        <a href="#">Predicciones</a>
-        <a href="#">Reportes</a>
-        <a href="#">Acerca de</a>
-      </nav>
-      <button class="login-btn">Login →</button>
-    </header>
-  
-    <main>
-      <h1>{{ title }}</h1>
-      <div class="content">
-        <div class="filters">
-          <div class="filter-item">
-            <label for="timePeriod">Periodo de tiempo o Fecha</label>
-            <select id="timePeriod" [(ngModel)]="timePeriod">
-              <option value="">Seleccionar</option>
-              <!-- Add options here -->
-            </select>
-          </div>
-          <div class="filter-item">
-            <label for="department">Departamento</label>
-            <select id="department" [(ngModel)]="department">
-              <option value="">Seleccionar</option>
-              <!-- Add options here -->
-            </select>
-          </div>
-          <div class="filter-item">
-            <label for="province">Provincia</label>
-            <select id="province" [(ngModel)]="province">
-              <option value="">Seleccionar</option>
-              <!-- Add options here -->
-            </select>
-          </div>
-          <div class="filter-item">
-            <label for="district">Distrito</label>
-            <select id="district" [(ngModel)]="district">
-              <option value="">Seleccionar</option>
-              <!-- Add options here -->
-            </select>
-          </div>
-          <button (click)="onSearch()">Buscar</button>
+  <header>
+    <div class="logo">SAVID</div>
+    <nav>
+      <a href="#">Inicio</a>
+      <a href="#">Mapa de Calor</a>
+      <a href="#">Predicciones</a>
+      <a href="#">Reportes</a>
+      <a href="#">Acerca de</a>
+    </nav>
+    <button class="login-btn">Login →</button>
+  </header>
+
+  <main>
+    <h1>{{ title }}</h1>
+    <div class="content">
+      <div class="filters">
+        <!-- Filtro de tiempo -->
+        <div class="filter-item">
+          <label for="timePeriod">Periodo de tiempo</label>
+          <select id="timePeriod" [(ngModel)]="timePeriod">
+            <option value="">Seleccionar periodo</option>
+            <option *ngFor="let periodo of periodosTiempo" [value]="periodo.value">
+              {{ periodo.label }}
+            </option>
+          </select>
         </div>
-        <div class="map-container">
-          <google-map
-            height="100%"
-            width="100%"
-            [center]="center"
-            [zoom]="zoom"
-            [options]="options">
-          </google-map>
+
+        <!-- Campos de fecha que se muestran si se selecciona "rango-personalizado" -->
+        <div class="filter-item" *ngIf="timePeriod === 'rango-personalizado'">
+          <label for="fechaInicio">Fecha inicio</label>
+          <input type="date" id="fechaInicio" [(ngModel)]="fechaInicio">
+          
+          <label for="fechaFin">Fecha fin</label>
+          <input type="date" id="fechaFin" [(ngModel)]="fechaFin">
         </div>
+
+
+        <!-- Filtros de ubicación -->
+        <div class="filter-item">
+          <label for="department">Departamento</label>
+          <select id="department" [(ngModel)]="department" (ngModelChange)="onDepartamentoChange()">
+            <option value="">Seleccionar departamento</option>
+            <option *ngFor="let dept of departamentos" [value]="dept">
+              {{ dept }}
+            </option>
+          </select>
+        </div>
+
+        <div class="filter-item">
+          <label for="province">Provincia</label>
+          <select id="province" [(ngModel)]="province" (ngModelChange)="onProvinciaChange()" [disabled]="!department">
+            <option value="">Seleccionar provincia</option>
+            <option *ngFor="let prov of provincias" [value]="prov">
+              {{ prov }}
+            </option>
+          </select>
+        </div>
+
+        <div class="filter-item">
+          <label for="district">Distrito</label>
+          <select id="district" [(ngModel)]="district" [disabled]="!province">
+            <option value="">Seleccionar distrito</option>
+            <option *ngFor="let dist of distritos" [value]="dist">
+              {{ dist }}
+            </option>
+          </select>
+        </div>
+
+        <button (click)="onSearch()" [disabled]="!timePeriod || (!fechaInicio && timePeriod === 'rango-personalizado')">
+          Buscar
+        </button>
       </div>
-    </main>
-  </div>
+      <div class="map-container">
+        <google-map
+          height="100%"
+          width="100%"
+          [center]="center"
+          [zoom]="zoom"
+          [options]="options"
+          (mapInitialized)="onMapReady($event)">
+        </google-map>
+      </div>
+    </div>
+  </main>
+</div>
