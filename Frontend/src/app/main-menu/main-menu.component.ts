@@ -6,7 +6,7 @@ interface ChartData {
 }
 
 @Component({
-  selector: 'app-main-menu',
+  selector: 'main-menu',
   standalone: true,
   imports: [],
   templateUrl: './main-menu.component.html',

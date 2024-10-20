@@ -1,16 +1,7 @@
 <div class="app-container">
-  <ng-container *ngIf="!isLoggedIn; else authenticatedContent">
-    <app-login (loginSuccess)="onLoginSuccess()"></app-login>
-  </ng-container>
-  
-  <ng-template #authenticatedContent>
-    <!-- Navbar para componentes autenticados -->
-    <nav>
-      <a routerLink="/heat-map">Mapa de Calor</a>
-      <!-- Agrega más enlaces aquí para futuros componentes -->
-    </nav>
-    
-    <!-- Router outlet para cargar componentes dinámicamente -->
-    <router-outlet></router-outlet>
-  </ng-template>
+  @if (!isLoggedIn) {
+      <app-login (loginSuccess)="onLoginSuccess()"></app-login>
+  } @else {
+      <main-menu></main-menu>
+  }
 </div>

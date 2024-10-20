@@ -35,7 +35,7 @@ export class LoginComponent {
         (response) => {
           this.authService.setToken(response.access_token);
           this.loginSuccess.emit();
-          this.router.navigate(['/heat-map']);
+          this.router.navigate(['/main-menu']);
         },
         (error) => {
           this.errorMessage = error.error.message || 'Error al iniciar sesión';
