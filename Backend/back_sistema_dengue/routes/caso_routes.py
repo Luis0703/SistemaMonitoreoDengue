@@ -2,7 +2,6 @@ from flask import Blueprint, request, jsonify, make_response
 from utils.db import db
 from models.caso import Caso
 from models.region import Region
-
 from schemas.caso_schema import caso_schema, casos_schema  # Asegúrate de importar el schema
 
 caso_routes = Blueprint("caso_routes", __name__)
@@ -84,42 +83,40 @@ def delete_caso(id):
 
 # Endpoint para obtener los datos del mapa de calor
 @caso_routes.route('/casos/mapa-calor', methods=['GET'])
-def get_casos_mapa_calor():
-    # Filtros opcionales
-    fecha_inicio = request.args.get('fecha_inicio')
-    fecha_fin = request.args.get('fecha_fin')
-    departamento = request.args.get('departamento')
-    provincia = request.args.get('provincia')
-    distrito = request.args.get('distrito')
-
-    # Base de la consulta: unir Caso y Región por el campo IdUbigeo
-    query = db.session.query(Region.Latitud, Region.Longitud, db.func.count(Caso.IdCaso).label('cantidad_casos')) \
-        .join(Caso, Caso.IdUbigeo == Region.IdUbigeo) \
-        .group_by(Region.Latitud, Region.Longitud)
-
-    # Aplicar filtros si están presentes
-    if fecha_inicio and fecha_fin:
-        query = query.filter(Caso.Anio >= fecha_inicio, Caso.Anio <= fecha_fin)
+def get_mapa_calor():
+    # Obtener los parámetros de la solicitud
+    anio_inicio = request.args.get('anio_inicio', type=int)
+    semana_inicio = request.args.get('semana_inicio', type=int)
+    anio_fin = request.args.get('anio_fin', type=int)
+    semana_fin = request.args.get('semana_fin', type=int)
     
-    if departamento:
-        query = query.filter(Region.Departamento == departamento)
-    
-    if provincia:
-        query = query.filter(Region.Provincia == provincia)
-    
-    if distrito:
-        query = query.filter(Region.Distrito == distrito)
+    # Construir la consulta de selección, solo obteniendo latitud, longitud y cantidad de casos
+    query = db.session.query(
+        Region.Latitud, 
+        Region.Longitud, 
+        db.func.count(Caso.IdCaso).label('cantidad_casos')
+    ).join(Region, Caso.IdUbigeo == Region.IdUbigeo)
 
-    # Ejecutar la consulta
-    resultados = query.all()
+    # Aplicar los filtros de año y semana si están presentes
+    if anio_inicio and semana_inicio and anio_fin and semana_fin:
+        query = query.filter(
+            Caso.Anio >= anio_inicio,
+            Caso.Anio <= anio_fin,
+            db.or_(
+                db.and_(Caso.Anio == anio_inicio, Caso.Semana >= semana_inicio),
+                db.and_(Caso.Anio == anio_fin, Caso.Semana <= semana_fin),
+                db.and_(Caso.Anio > anio_inicio, Caso.Anio < anio_fin)
+            )
+        )
 
-    # Formatear los datos para el mapa de calor
-    heatmap_data = []
-    for resultado in resultados:
-        heatmap_data.append({
-            'lat': resultado.Latitud,
-            'lng': resultado.Longitud,
-            'cantidad_casos': resultado.cantidad_casos  # Cantidad de casos en ese lugar
-        })
+    # Agrupar por ubicación (latitud y longitud)
+    query = query.group_by(Region.Latitud, Region.Longitud)
 
-    return make_response(jsonify({'message': 'Datos del mapa de calor', 'status': 200, 'data': heatmap_data}), 200)
+    # Ejecutar la consulta y obtener los resultados
+    result = query.all()
+
+    # Convertir los resultados a un formato adecuado para el mapa de calor
+    data = [{'lat': r.Latitud, 'lng': r.Longitud, 'cantidad_casos': r.cantidad_casos} for r in result]
+
+    return jsonify({'data': data})
+

@@ -26,15 +26,20 @@
           </select>
         </div>
 
-        <!-- Campos de fecha que se muestran si se selecciona "rango-personalizado" -->
+        <!-- Campos de año y semana que se muestran si se selecciona "rango-personalizado" -->
         <div class="filter-item" *ngIf="timePeriod === 'rango-personalizado'">
-          <label for="fechaInicio">Fecha inicio</label>
-          <input type="date" id="fechaInicio" [(ngModel)]="fechaInicio">
-          
-          <label for="fechaFin">Fecha fin</label>
-          <input type="date" id="fechaFin" [(ngModel)]="fechaFin">
-        </div>
+          <label for="anioInicio">Año inicio</label>
+          <input type="number" id="anioInicio" [(ngModel)]="anioInicio" min="2000" max="2024">
 
+          <label for="semanaInicio">Semana inicio</label>
+          <input type="number" id="semanaInicio" [(ngModel)]="semanaInicio" min="1" max="52">
+
+          <label for="anioFin">Año fin</label>
+          <input type="number" id="anioFin" [(ngModel)]="anioFin" min="2000" max="2024">
+
+          <label for="semanaFin">Semana fin</label>
+          <input type="number" id="semanaFin" [(ngModel)]="semanaFin" min="1" max="52">
+        </div>
 
         <!-- Filtros de ubicación -->
         <div class="filter-item">
@@ -67,7 +72,7 @@
           </select>
         </div>
 
-        <button (click)="onSearch()" [disabled]="!timePeriod || (!fechaInicio && timePeriod === 'rango-personalizado')">
+        <button (click)="onSearch()" [disabled]="!(timePeriod || department || province || district)">
           Buscar
         </button>
       </div>
@@ -84,3 +89,4 @@
     </div>
   </main>
 </div>
+

@@ -66,6 +66,31 @@
           border: none;
           cursor: pointer;
         }
+
+        button {
+          background-color: #28a745;
+          color: white;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          font-size: 16px;
+          transition: background-color 0.3s ease, transform 0.1s ease;
+        }
+        
+        button:hover {
+          background-color: #218838;
+        }
+        
+        button:active {
+          transform: scale(0.98);  // Simula que el botón se presiona
+          background-color: #1e7e34;
+        }
+        
+        button:disabled {
+          background-color: #6c757d;
+          cursor: not-allowed;
+        }
       }
 
       .map-container {
