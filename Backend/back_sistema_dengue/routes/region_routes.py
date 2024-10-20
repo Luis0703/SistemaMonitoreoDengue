@@ -82,27 +82,33 @@ def delete_region(id):
 # Nuevos Endpoints para los Filtros
 @region_routes.route('/departamentos', methods=['GET'])
 def get_departamentos():
-    departamentos = db.session.query(Region.Departamento).distinct().all()
+    # Ordenar departamentos alfabéticamente
+    departamentos = db.session.query(Region.Departamento).distinct().order_by(Region.Departamento.asc()).all()
     departamentos_list = [dept[0] for dept in departamentos]
     return jsonify({'departamentos': departamentos_list}), 200
+
 
 @region_routes.route('/provincias', methods=['GET'])
 def get_provincias():
     departamento = request.args.get('departamento')
     if not departamento:
         return jsonify({'error': 'Parámetro "departamento" requerido'}), 400
-    provincias = db.session.query(Region.Provincia).filter_by(Departamento=departamento).distinct().all()
+    # Ordenar provincias alfabéticamente
+    provincias = db.session.query(Region.Provincia).filter_by(Departamento=departamento).distinct().order_by(Region.Provincia.asc()).all()
     provincias_list = [prov[0] for prov in provincias]
     return jsonify({'provincias': provincias_list}), 200
+
 
 @region_routes.route('/distritos', methods=['GET'])
 def get_distritos():
     provincia = request.args.get('provincia')
     if not provincia:
         return jsonify({'error': 'Parámetro "provincia" requerido'}), 400
-    distritos = db.session.query(Region.Distrito).filter_by(Provincia=provincia).distinct().all()
+    # Ordenar distritos alfabéticamente
+    distritos = db.session.query(Region.Distrito).filter_by(Provincia=provincia).distinct().order_by(Region.Distrito.asc()).all()
     distritos_list = [dist[0] for dist in distritos]
     return jsonify({'distritos': distritos_list}), 200
+
 
 # Obtener latitud y longitud de una región basada en los filtros
 @region_routes.route('/regiones/coords', methods=['GET'])
