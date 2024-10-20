@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 interface ChartData {
   name: string;
   casos: number;
@@ -8,7 +9,7 @@ interface ChartData {
 @Component({
   selector: 'main-menu',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, RouterModule],
   templateUrl: './main-menu.component.html',
   styleUrls: ['./main-menu.component.scss']
 })
