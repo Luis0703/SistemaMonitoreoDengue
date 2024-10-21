@@ -1,5 +1,4 @@
 from flask import Flask
-from routes.casos_dengue_routes import casos_dengue_routes
 from routes.usuarios_routes import usuarios_routes
 from routes.region_routes import region_routes
 from routes.caso_routes import caso_routes
@@ -34,7 +33,6 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 db.init_app(app)
 jwt = JWTManager(app)  # Inicializa JWTManager
 
-app.register_blueprint(casos_dengue_routes)
 app.register_blueprint(usuarios_routes)  # Registra las rutas de usuarios
 app.register_blueprint(region_routes)
 app.register_blueprint(caso_routes)
