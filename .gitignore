@@ -1,5 +1,7 @@
 # Node dependencies
-node_modules/
+/node_modules
+npm-debug.log
+yarn-error.log
 
 # Compiled output
 dist/
@@ -17,8 +19,12 @@ bazel-out/
 *.sublime-workspace
 
 # Visual Studio Code
-.vscode/
-.history/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
 
 # Miscellaneous
 .angular/

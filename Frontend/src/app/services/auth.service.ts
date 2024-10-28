@@ -3,17 +3,18 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';  // Importa HttpClient
+import { environment } from '../../environments/environment';  // Importa las configuraciones de entorno
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:5000'; // URL de tu backend
+  private apiUrl = environment.apiUrl; // URL de tu backend
 
   constructor(private http: HttpClient) {}  // Inyecta HttpClient
   
   loginWithGoogle(): void {
-    window.location.href = 'http://localhost:5000/auth/google';  // La URL del backend
+    window.location.href = `${this.apiUrl}/auth/google`;  // La URL del backend
   }
 
   // Nuevo método de inicio de sesión

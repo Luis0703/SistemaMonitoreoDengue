@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/66c6c04e-0fda-4ba9-90b6-b9d967d64d1d/resourceGroups/Clases_UNMSM/providers/Microsoft.Web/sites/sistemadenguefront",
+    "appService.deploySubpath": "."
+}

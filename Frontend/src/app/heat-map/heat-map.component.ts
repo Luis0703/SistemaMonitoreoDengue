@@ -4,6 +4,8 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { AuthService } from '../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+
 
 interface HeatMapData {
   lat: number;
@@ -20,7 +22,8 @@ interface HeatMapData {
 })
 export class HeatMapComponent implements OnInit {
   title = 'Mapa de Calor';
-  
+  private apiUrl = environment.apiUrl; // Usar apiUrl del entorno
+
   // Configuración del mapa
   center: google.maps.LatLngLiteral = {
     lat: -9.189967,  // Centrando en Perú
@@ -71,7 +74,7 @@ export class HeatMapComponent implements OnInit {
 
   // Función para cargar todos los datos del mapa de calor
   loadHeatMapData() {
-    const url = 'http://localhost:5000/casos/mapa-calor';
+    const url = `${this.apiUrl}/casos/mapa-calor`;
 
     this.http.get<{data: HeatMapData[]}>(url).subscribe({
       next: (response) => {
@@ -165,7 +168,7 @@ export class HeatMapComponent implements OnInit {
 
   // Función para aplicar el zoom al área seleccionada sin filtrar los datos
   onSearch() {
-    let url = 'http://localhost:5000/casos/mapa-calor?';
+    let url = `${this.apiUrl}/casos/mapa-calor?`;
     const params = new URLSearchParams();
   
     // Solo incluir filtros de tiempo si se seleccionan semanas
@@ -197,7 +200,7 @@ export class HeatMapComponent implements OnInit {
   }
   
   centerMapOnSelectedRegion() {
-    let url = 'http://localhost:5000/regiones/coords?';
+    let url = `${this.apiUrl}/regiones/coords?`;
     const params = new URLSearchParams();
   
     if (this.district) {

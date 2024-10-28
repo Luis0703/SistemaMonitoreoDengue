@@ -14,6 +14,20 @@ from utils.db import db
 from flask_jwt_extended import JWTManager
 
 app = Flask(__name__)
+
+# Endpoint de prueba
+@app.route('/test', methods=['GET'])
+def test():
+    return "¡La aplicación Flask está funcionando correctamente!", 200
+
+@app.route('/db-test', methods=['GET'])
+def db_test():
+    try:
+        result = db.session.execute('SELECT 1')
+        return "Conexión exitosa a la base de datos", 200
+    except Exception as e:
+        return str(e), 500
+
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 app.secret_key = 'clavesecreta123'
