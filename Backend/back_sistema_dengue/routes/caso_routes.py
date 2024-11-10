@@ -3,6 +3,7 @@ from utils.db import db
 from models.caso import Caso
 from models.region import Region
 from schemas.caso_schema import caso_schema, casos_schema  # Asegúrate de importar el schema
+from sqlalchemy import text
 
 caso_routes = Blueprint("caso_routes", __name__)
 
@@ -119,4 +120,58 @@ def get_mapa_calor():
     data = [{'lat': r.Latitud, 'lng': r.Longitud, 'cantidad_casos': r.cantidad_casos} for r in result]
 
     return jsonify({'data': data})
+
+@caso_routes.route('/resumen', methods=['GET'])
+def get_resumen():
+    total_casos = Caso.query.count()
+    alertas_activas = 10  # Valor estático como ejemplo
+    zonas_controladas = 78  # Otro valor estático
+
+    return jsonify({
+        'totalCasos': total_casos,
+        'alertasActivas': alertas_activas,
+        'zonasControladas': zonas_controladas
+    })
+
+@caso_routes.route('/casos/tendencia', methods=['GET'])
+def get_tendencia():
+    # Envolver la consulta SQL en text()
+    results = db.session.execute(
+        text("""
+        SELECT "Anio", COUNT(*) as count
+        FROM public."Caso"
+        GROUP BY "Anio"
+        ORDER BY "Anio" DESC
+        LIMIT 6
+        """)
+    )
+
+    # Convertir los resultados en una lista de diccionarios
+    tendencia = [{"anio": row[0], "casos": row[1]} for row in results]
+
+    # Ordenar los resultados en orden ascendente de años para el gráfico
+    tendencia = sorted(tendencia, key=lambda x: x["anio"])
+
+    return jsonify(tendencia)
+
+
+
+@caso_routes.route('/noticias', methods=['GET'])
+def get_noticias():
+    noticias = [
+        "Nueva alerta en la región norte",
+        "Actualización del sistema v2.3",
+        "Campaña de prevención en escuelas"
+    ]
+    return jsonify(noticias)
+
+@caso_routes.route('/consejos', methods=['GET'])
+def get_consejos():
+    consejos = [
+        {"titulo": "Elimina agua estancada", "descripcion": "Revisa y vacía recipientes que puedan acumular agua."},
+        {"titulo": "Usa repelente", "descripcion": "Aplica repelente de insectos en áreas expuestas de la piel."},
+        {"titulo": "Mantén tu entorno limpio", "descripcion": "Limpia y desinfecta regularmente áreas propensas a mosquitos."}
+    ]
+    return jsonify(consejos)
+
 

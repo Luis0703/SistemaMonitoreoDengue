@@ -1,69 +1,57 @@
 <div class="dashboard-container">
-    <nav class="navbar">
-      <div class="logo">SAVID</div>
-      <ul class="nav-links">
-        <li><a href="#">Inicio</a></li>
-        <li><a routerLink="/heat-map">Mapa de Calor</a></li>
-        <li><a routerLink="/predictions">Predicciones</a></li>
-        <li><a href="#">Reportes</a></li>
-        <li><a href="#">Acerca de</a></li>
+  <nav class="navbar">
+    <div class="logo">SAVID</div>
+    <ul class="nav-links">
+      <li><a href="#">Inicio</a></li>
+      <li><a routerLink="/heat-map">Mapa de Calor</a></li>
+      <li><a routerLink="/predictions">Predicciones</a></li>
+      <li><a href="#">Reportes</a></li>
+      <li><a href="#">Acerca de</a></li>
+    </ul>
+    <button class="login-button">Login →</button>
+  </nav>
+
+  <div class="main-content">
+    <div class="summary-panel">
+      <h2>Resumen</h2>
+      <div class="summary-item total-cases">
+        <h3>Total de Casos</h3>
+        <p>{{ totalCasos }}</p>
+      </div>
+      <div class="summary-item active-alerts">
+        <h3>Alertas Activas</h3>
+        <p>{{ alertasActivas }}</p>
+      </div>
+      <div class="summary-item controlled-zones">
+        <h3>Zonas controladas</h3>
+        <p>{{ zonasControladas }}</p>
+      </div>
+    </div>
+
+    <div class="chart-panel">
+      <h2>Tendencia de casos</h2>
+      <canvas baseChart
+              [data]="barChartData"
+              [options]="barChartOptions"
+              chartType="bar">
+      </canvas>
+    </div>
+
+    <div class="news-panel">
+      <h2>Noticias y actualizaciones</h2>
+      <ul>
+        <li *ngFor="let noticia of noticias">{{ noticia }}</li>
       </ul>
-      <button class="login-button">Login →</button>
-    </nav>
-  
-    <div class="main-content">
-      <div class="summary-panel">
-        <h2>Resumen</h2>
-        <div class="summary-item total-cases">
-          <h3>Total de Casos</h3>
-          <p>15,234</p>
-        </div>
-        <div class="summary-item active-alerts">
-          <h3>Alertas Activas</h3>
-          <p>10</p>
-        </div>
-        <div class="summary-item controlled-zones">
-          <h3>Zonas controladas</h3>
-          <p>78%</p>
-        </div>
-      </div>
-  
-      <div class="chart-panel">
-        <h2>Tendencia de casos</h2>
-        <!-- Placeholder for chart, you'll need to integrate a charting library -->
-        <div class="chart-placeholder">
-          <!-- Chart will be rendered here -->
-        </div>
-      </div>
-  
-      <div class="news-panel">
-        <h2>Noticias y actualizaciones</h2>
-        <ul>
-          <li>Nueva alerta en la región norte</li>
-          <li>Actualización del sistema v2.3</li>
-          <li>Campaña de prevención en escuelas</li>
-        </ul>
-      </div>
-  
-      <div class="prevention-panel">
-        <h2>Consejos de prevención</h2>
-        <div class="prevention-tips">
-          <div class="tip">
-            <h3>Elimina agua estancada</h3>
-            <p>Revisa y vacía recipientes que puedan acumular agua.</p>
-          </div>
-          <div class="tip">
-            <h3>Usa repelente</h3>
-            <p>Aplica repelente de insectos en áreas expuestas de la piel.</p>
-          </div>
-          <div class="tip">
-            <h3>Mantén tu entorno limpio</h3>
-            <p>Limpia y desinfecta regularmente áreas propensas a mosquitos.</p>
-          </div>
+    </div>
+
+    <div class="prevention-panel">
+      <h2>Consejos de prevención</h2>
+      <div class="prevention-tips">
+        <div class="tip" *ngFor="let consejo of consejos">
+          <h3>{{ consejo.titulo }}</h3>
+          <p>{{ consejo.descripcion }}</p>
         </div>
       </div>
     </div>
   </div>
-
-
- 
+</div>
