@@ -35,35 +35,30 @@
           <!-- Chart will be rendered here -->
         </div>
       </div>
-  
-      <div class="news-panel">
-        <h2>Noticias y actualizaciones</h2>
-        <ul>
-          <li>Nueva alerta en la región norte</li>
-          <li>Actualización del sistema v2.3</li>
-          <li>Campaña de prevención en escuelas</li>
-        </ul>
+    
+      <!-- Botón para ir a la siguiente noticia -->
+      <button class="carousel-button right" (click)="siguienteNoticia()">&#10095;</button>
+    
+      <!-- Indicadores de puntos -->
+      <div class="carousel-indicators">
+        <span
+          *ngFor="let noticia of noticias; let i = index"
+          class="indicator"
+          [class.active]="i === indiceNoticiaActual">
+        </span>
       </div>
-  
-      <div class="prevention-panel">
-        <h2>Consejos de prevención</h2>
-        <div class="prevention-tips">
-          <div class="tip">
-            <h3>Elimina agua estancada</h3>
-            <p>Revisa y vacía recipientes que puedan acumular agua.</p>
-          </div>
-          <div class="tip">
-            <h3>Usa repelente</h3>
-            <p>Aplica repelente de insectos en áreas expuestas de la piel.</p>
-          </div>
-          <div class="tip">
-            <h3>Mantén tu entorno limpio</h3>
-            <p>Limpia y desinfecta regularmente áreas propensas a mosquitos.</p>
-          </div>
+    </div>
+    
+
+    <div class="prevention-panel">
+      <h2>Consejos de prevención</h2>
+      <div class="prevention-tips">
+        <div class="tip" *ngFor="let consejo of consejos">
+          <h3>{{ consejo.titulo }}</h3>
+          <p>{{ consejo.descripcion }}</p>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-
- 

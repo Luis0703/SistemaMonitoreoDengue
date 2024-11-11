@@ -53,5 +53,20 @@ export class AuthService {
   getDistritos(provincia: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/distritos?provincia=${provincia}`);
   }
+  getResumen(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/resumen`);
+  }
+
+  getTendenciaCasos(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/casos/tendencia`);
+  }
+
+  obtenerNoticias(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/api/noticias`);
+  }
+
+  getConsejos(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/consejos`);
+  }
   
 }
