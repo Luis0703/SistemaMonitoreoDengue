@@ -1,0 +1,196 @@
+// dengue-predictions.component.scss
+
+// Variables
+$primary-color: #4CAF50;
+$secondary-color: #2196F3;
+$warning-color: #FFC107;
+$danger-color: #f44336;
+$gray-light: #f5f5f5;
+$gray-medium: #e0e0e0;
+$border-radius: 8px;
+$spacing-unit: 1rem;
+
+.predictions-container {
+  padding: $spacing-unit * 2;
+  font-family: Arial, sans-serif;
+
+  .predictions-header {
+    margin-bottom: $spacing-unit * 2;
+    
+    h1 {
+      font-size: 1.5rem;
+      color: #333;
+      margin: 0;
+    }
+  }
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  grid-gap: $spacing-unit * 2;
+}
+
+// Filters Section
+.filters-section {
+  background: white;
+  padding: $spacing-unit * 1.5;
+  border-radius: $border-radius;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+  h2 {
+    font-size: 1.1rem;
+    margin-bottom: $spacing-unit;
+  }
+
+  .filter-group {
+    margin-bottom: $spacing-unit * 1.5;
+
+    label {
+      display: block;
+      margin-bottom: $spacing-unit * 0.5;
+      color: #666;
+    }
+
+    .date-input,
+    .select-input {
+      position: relative;
+      
+      input,
+      select {
+        width: 100%;
+        padding: $spacing-unit * 0.75;
+        border: 1px solid $gray-medium;
+        border-radius: $border-radius;
+        appearance: none;
+        
+        &:focus {
+          outline: none;
+          border-color: $primary-color;
+        }
+      }
+
+      .calendar-icon,
+      .dropdown-icon {
+        position: absolute;
+        right: $spacing-unit;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #666;
+      }
+    }
+  }
+
+  .apply-filters-btn {
+    width: 100%;
+    padding: $spacing-unit * 0.75;
+    background-color: $primary-color;
+    color: white;
+    border: none;
+    border-radius: $border-radius;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: darken($primary-color, 5%);
+    }
+  }
+}
+
+// Chart Section
+.chart-section {
+  background: white;
+  padding: $spacing-unit * 1.5;
+  border-radius: $border-radius;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  grid-column: 2;
+
+  .chart-container {
+    height: 300px;
+    margin-top: $spacing-unit;
+  }
+}
+
+// Metrics Section
+.metrics-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-unit;
+  grid-column: 2;
+
+  .metric-card {
+    background: white;
+    padding: $spacing-unit;
+    border-radius: $border-radius;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+    h3 {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: $spacing-unit * 0.5;
+    }
+
+    p {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    &.precision {
+      background-color: rgba($secondary-color, 0.1);
+      p { color: $secondary-color; }
+    }
+
+    &.error {
+      background-color: rgba($primary-color, 0.1);
+      p { color: $primary-color; }
+    }
+  }
+}
+
+// Alerts Section
+.alerts-section {
+  grid-column: 2;
+
+  .alert-card {
+    background: white;
+    padding: $spacing-unit;
+    border-radius: $border-radius;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+    &.warning {
+      background-color: rgba($warning-color, 0.1);
+      border-left: 4px solid $warning-color;
+    }
+
+    h3 {
+      font-size: 1rem;
+      color: #333;
+      margin-bottom: $spacing-unit * 0.5;
+    }
+
+    p {
+      color: #666;
+      margin: 0;
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 1024px) {
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-section,
+  .metrics-section,
+  .alerts-section {
+    grid-column: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .metrics-section {
+    grid-template-columns: 1fr;
+  }
+}
