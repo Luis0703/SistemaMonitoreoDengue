@@ -37,12 +37,32 @@
       </canvas>
     </div>
 
-    <div class="news-panel">
-      <h2>Noticias y actualizaciones</h2>
-      <ul>
-        <li *ngFor="let noticia of noticias">{{ noticia }}</li>
-      </ul>
+    <div class="news-carousel">
+      <!-- Botón para ir a la noticia anterior -->
+      <button class="carousel-button left" (click)="noticiaAnterior()">&#10094;</button>
+    
+      <!-- Contenido de la noticia actual -->
+      <div class="noticia">
+        <h3>{{ noticias[indiceNoticiaActual]?.titulo }}</h3>
+        <p>{{ noticias[indiceNoticiaActual]?.descripcion }}</p>
+        <p><strong>Fuente:</strong> {{ noticias[indiceNoticiaActual]?.fuente }}</p>
+        <p><strong>Fecha:</strong> {{ noticias[indiceNoticiaActual]?.fecha | date:'short' }}</p>
+        <a [href]="noticias[indiceNoticiaActual]?.url" target="_blank">Leer más</a>
+      </div>
+    
+      <!-- Botón para ir a la siguiente noticia -->
+      <button class="carousel-button right" (click)="siguienteNoticia()">&#10095;</button>
+    
+      <!-- Indicadores de puntos -->
+      <div class="carousel-indicators">
+        <span
+          *ngFor="let noticia of noticias; let i = index"
+          class="indicator"
+          [class.active]="i === indiceNoticiaActual">
+        </span>
+      </div>
     </div>
+    
 
     <div class="prevention-panel">
       <h2>Consejos de prevención</h2>
@@ -55,3 +75,4 @@
     </div>
   </div>
 </div>
+

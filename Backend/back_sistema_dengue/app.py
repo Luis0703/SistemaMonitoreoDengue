@@ -11,6 +11,8 @@ from config import DATABASE_CONNECTION_URI
 from flask_cors import CORS
 from utils.db import db
 from flask_jwt_extended import JWTManager
+from routes.noticia_routes import noticia_routes
+
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
@@ -40,6 +42,8 @@ app.register_blueprint(brote_routes)
 app.register_blueprint(reporte_routes)
 app.register_blueprint(notificacion_routes)
 app.register_blueprint(predicciones_routes)
+app.register_blueprint(noticia_routes)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

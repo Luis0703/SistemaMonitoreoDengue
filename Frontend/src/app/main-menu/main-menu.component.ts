@@ -23,6 +23,7 @@ export class MainMenuComponent implements OnInit {
   zonasControladas: string = '0%';
   noticias: any[] = [];
   consejos: any[] = [];
+  indiceNoticiaActual: number = 0;
   
   public barChartData: ChartData<'bar'> = {
     labels: [],
@@ -72,9 +73,25 @@ export class MainMenuComponent implements OnInit {
   
 
   cargarNoticias(): void {
-    this.dataService.getNoticias().subscribe(data => {
-      this.noticias = data;
-    });
+    this.dataService.obtenerNoticias().subscribe(
+      (data) => {
+        this.noticias = data;
+      },
+      (error) => {
+        console.error('Error al cargar las noticias:', error);
+      }
+    );
+  }
+
+  // Método para ir a la siguiente noticia
+  siguienteNoticia(): void {
+    this.indiceNoticiaActual = (this.indiceNoticiaActual + 1) % this.noticias.length;
+  }
+
+  // Método para ir a la noticia anterior
+  noticiaAnterior(): void {
+    this.indiceNoticiaActual =
+      (this.indiceNoticiaActual - 1 + this.noticias.length) % this.noticias.length;
   }
 
   cargarConsejos(): void {

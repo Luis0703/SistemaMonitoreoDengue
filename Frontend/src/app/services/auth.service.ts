@@ -61,11 +61,12 @@ export class AuthService {
     return this.http.get(`${this.apiUrl}/casos/tendencia`);
   }
 
-  getNoticias(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/noticias`);
+  obtenerNoticias(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/api/noticias`);
   }
 
   getConsejos(): Observable<any> {
     return this.http.get(`${this.apiUrl}/consejos`);
   }
+  
 }

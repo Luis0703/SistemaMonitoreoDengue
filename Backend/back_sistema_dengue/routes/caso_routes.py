@@ -155,16 +155,6 @@ def get_tendencia():
     return jsonify(tendencia)
 
 
-
-@caso_routes.route('/noticias', methods=['GET'])
-def get_noticias():
-    noticias = [
-        "Nueva alerta en la región norte",
-        "Actualización del sistema v2.3",
-        "Campaña de prevención en escuelas"
-    ]
-    return jsonify(noticias)
-
 @caso_routes.route('/consejos', methods=['GET'])
 def get_consejos():
     consejos = [
