@@ -3,15 +3,15 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { BaseChartDirective } from 'ng2-charts';
 import { Chart, ChartData, ChartOptions, registerables } from 'chart.js';
-
 import { AuthService } from '../services/auth.service';
+import { RouterModule } from '@angular/router';
 
 Chart.register(...registerables);
 
 @Component({
   selector: 'app-main-menu',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, BaseChartDirective],
+  imports: [CommonModule, HttpClientModule, BaseChartDirective, RouterModule],
   templateUrl: './main-menu.component.html',
   styleUrls: ['./main-menu.component.scss'],
   providers: [AuthService]

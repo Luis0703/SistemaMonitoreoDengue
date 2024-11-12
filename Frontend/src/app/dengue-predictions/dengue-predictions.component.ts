@@ -15,6 +15,7 @@ import {
   ApexTitleSubtitle,
   ApexLegend
 } from "ng-apexcharts";
+import { RouterModule } from '@angular/router';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -33,7 +34,7 @@ export type ChartOptions = {
 @Component({
   selector: 'app-dengue-predictions',
   standalone: true,
-  imports: [CommonModule, FormsModule, NgApexchartsModule],
+  imports: [CommonModule, FormsModule, NgApexchartsModule,RouterModule],
   templateUrl: './dengue-predictions.component.html',
   styleUrls: ['./dengue-predictions.component.scss']
 })

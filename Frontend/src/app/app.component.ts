@@ -6,6 +6,7 @@ import { MainMenuComponent } from './main-menu/main-menu.component';
 import { HeatMapComponent } from './heat-map/heat-map.component';
 import { DenguePredictionsComponent } from './dengue-predictions/dengue-predictions.component';
 
+
 @Component({
     selector: 'app-root',
     standalone: true,
@@ -16,6 +17,7 @@ import { DenguePredictionsComponent } from './dengue-predictions/dengue-predicti
         MainMenuComponent,
         HeatMapComponent,
         DenguePredictionsComponent,
+       
     ],
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
