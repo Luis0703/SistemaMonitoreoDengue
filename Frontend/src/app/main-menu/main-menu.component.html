@@ -1,6 +1,8 @@
 <div class="dashboard-container">
   <nav class="navbar">
-    <div class="logo">SAVID</div>
+    <div class="logo">
+      SAVID
+    </div>
     <ul class="nav-links">
       <li><a href="#">Inicio</a></li>
       <li><a routerLink="/heat-map">Mapa de Calor</a></li>
@@ -31,38 +33,33 @@
     <div class="chart-panel">
       <h2>Tendencia de casos</h2>
       <canvas baseChart
-              [data]="barChartData"
-              [options]="barChartOptions"
-              chartType="bar">
+        [data]="barChartData"
+        [options]="barChartOptions"
+        [type]="'bar'">
       </canvas>
     </div>
 
     <div class="news-carousel">
-      <!-- Botón para ir a la noticia anterior -->
-      <button class="carousel-button left" (click)="noticiaAnterior()">&#10094;</button>
-    
-      <!-- Contenido de la noticia actual -->
       <div class="noticia">
         <h3>{{ noticias[indiceNoticiaActual]?.titulo }}</h3>
         <p>{{ noticias[indiceNoticiaActual]?.descripcion }}</p>
-        <p><strong>Fuente:</strong> {{ noticias[indiceNoticiaActual]?.fuente }}</p>
-        <p><strong>Fecha:</strong> {{ noticias[indiceNoticiaActual]?.fecha | date:'short' }}</p>
+        <div class="meta-info">
+          <p><strong>Fuente:</strong> {{ noticias[indiceNoticiaActual]?.fuente }}</p>
+          <p><strong>Fecha:</strong> {{ noticias[indiceNoticiaActual]?.fecha | date:'short' }}</p>
+        </div>
         <a [href]="noticias[indiceNoticiaActual]?.url" target="_blank">Leer más</a>
       </div>
-    
-      <!-- Botón para ir a la siguiente noticia -->
-      <button class="carousel-button right" (click)="siguienteNoticia()">&#10095;</button>
-    
-      <!-- Indicadores de puntos -->
+      
       <div class="carousel-indicators">
-        <span
-          *ngFor="let noticia of noticias; let i = index"
+        <button 
+          *ngFor="let noticia of noticias; let i = index" 
           class="indicator"
-          [class.active]="i === indiceNoticiaActual">
-        </span>
+          [class.active]="i === indiceNoticiaActual"
+          (click)="irANoticia(i)"
+          [attr.aria-label]="'Ir a noticia ' + (i + 1)">
+        </button>
       </div>
     </div>
-    
 
     <div class="prevention-panel">
       <h2>Consejos de prevención</h2>
@@ -75,4 +72,3 @@
     </div>
   </div>
 </div>
-
