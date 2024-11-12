@@ -15,7 +15,7 @@ import { DenguePredictionsComponent } from './dengue-predictions/dengue-predicti
         LoginComponent,
         MainMenuComponent,
         HeatMapComponent,
-        DenguePredictionsComponent
+        DenguePredictionsComponent,
     ],
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']

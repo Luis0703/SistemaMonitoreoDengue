@@ -24,7 +24,7 @@ export class MainMenuComponent implements OnInit {
   noticias: any[] = [];
   consejos: any[] = [];
   indiceNoticiaActual: number = 0;
-  
+
   public barChartData: ChartData<'bar'> = {
     labels: [],
     datasets: [
@@ -70,7 +70,7 @@ export class MainMenuComponent implements OnInit {
       this.barChartData.datasets[0].data = data.map((item: any) => item.casos);
     });
   }
-  
+
 
   cargarNoticias(): void {
     this.dataService.obtenerNoticias().subscribe(
@@ -82,12 +82,10 @@ export class MainMenuComponent implements OnInit {
       }
     );
   }
-
   // Método para ir a la siguiente noticia
   siguienteNoticia(): void {
     this.indiceNoticiaActual = (this.indiceNoticiaActual + 1) % this.noticias.length;
   }
-
   // Método para ir a la noticia anterior
   noticiaAnterior(): void {
     this.indiceNoticiaActual =
