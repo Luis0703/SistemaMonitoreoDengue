@@ -17,7 +17,7 @@ import { DenguePredictionsComponent } from './dengue-predictions/dengue-predicti
         MainMenuComponent,
         HeatMapComponent,
         DenguePredictionsComponent,
-       
+
     ],
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
@@ -25,7 +25,6 @@ import { DenguePredictionsComponent } from './dengue-predictions/dengue-predicti
 export class AppComponent {
     title = 'SistemaMonitoreoDengue';
     isLoggedIn = false;
-
     onLoginSuccess() {
         this.isLoggedIn = true;
     }
