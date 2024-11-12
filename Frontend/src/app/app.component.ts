@@ -4,6 +4,8 @@ import { RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { MainMenuComponent } from './main-menu/main-menu.component';
 import { HeatMapComponent } from './heat-map/heat-map.component';
+import { DenguePredictionsComponent } from './dengue-predictions/dengue-predictions.component';
+
 
 @Component({
     selector: 'app-root',
@@ -13,7 +15,9 @@ import { HeatMapComponent } from './heat-map/heat-map.component';
         RouterModule,
         LoginComponent,
         MainMenuComponent,
-        HeatMapComponent
+        HeatMapComponent,
+        DenguePredictionsComponent,
+       
     ],
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
