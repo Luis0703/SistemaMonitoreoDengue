@@ -65,12 +65,10 @@ export class MainMenuComponent implements OnInit {
 
   cargarTendenciaCasos(): void {
     this.dataService.getTendenciaCasos().subscribe(data => {
-      // Asignar los años como etiquetas y los casos como datos
       this.barChartData.labels = data.map((item: any) => item.anio.toString());
       this.barChartData.datasets[0].data = data.map((item: any) => item.casos);
     });
   }
-
 
   cargarNoticias(): void {
     this.dataService.obtenerNoticias().subscribe(
@@ -82,14 +80,9 @@ export class MainMenuComponent implements OnInit {
       }
     );
   }
-  // Método para ir a la siguiente noticia
-  siguienteNoticia(): void {
-    this.indiceNoticiaActual = (this.indiceNoticiaActual + 1) % this.noticias.length;
-  }
-  // Método para ir a la noticia anterior
-  noticiaAnterior(): void {
-    this.indiceNoticiaActual =
-      (this.indiceNoticiaActual - 1 + this.noticias.length) % this.noticias.length;
+
+  irANoticia(indice: number): void {
+    this.indiceNoticiaActual = indice;
   }
 
   cargarConsejos(): void {

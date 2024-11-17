@@ -1,76 +1,76 @@
 <!-- dengue-predictions.component.html -->
 <div class="predictions-container">
-    <header class="predictions-header">
-      <h1>Predicciones de Brotes de Dengue</h1>
-    </header>
-  
-    <div class="content-grid">
-      <!-- Filters Section -->
-      <section class="filters-section">
-        <h2>Filtros</h2>
-        
-        <div class="filter-group">
-          <label>Rango de fechas</label>
-          <div class="date-input">
-            <input type="text" placeholder="dd/mm/aaaa">
-            <span class="calendar-icon">📅</span>
-          </div>
+  <header class="predictions-header">
+    <h1>Predicciones de Brotes de Dengue</h1>
+  </header>
+
+  <div class="content-grid">
+    <!-- Filters Section -->
+    <section class="filters-section">
+      <h2>Filtros</h2>
+      
+      <div class="filter-group">
+        <label>Rango de fechas</label>
+        <div class="date-input">
+          <input type="text" placeholder="dd/mm/aaaa">
+          <span class="calendar-icon">📅</span>
         </div>
-  
-        <div class="filter-group">
-          <label>Región</label>
-          <div class="select-input">
-            <select>
-              <option>Todas las Regiones</option>
-            </select>
-            <span class="dropdown-icon">▼</span>
-          </div>
+      </div>
+
+      <div class="filter-group">
+        <label>Región</label>
+        <div class="select-input">
+          <select>
+            <option>Todas las Regiones</option>
+          </select>
+          <span class="dropdown-icon">▼</span>
         </div>
-  
-        <button class="apply-filters-btn">
-          Aplicar filtros
-        </button>
-      </section>
-  
-      <!-- Chart Section -->
-      <section class="chart-section">
-        <h2>Predicción vs. Casos Reales</h2>
-        <div class="chart-container">
-          <apx-chart
-            [series]="chartOptions.series!"
-            [chart]="chartOptions.chart!"
-            [xaxis]="chartOptions.xaxis!"
-            [stroke]="chartOptions.stroke!"
-            [dataLabels]="chartOptions.dataLabels!"
-            [markers]="chartOptions.markers!"
-            [colors]="chartOptions.colors!"
-            [yaxis]="chartOptions.yaxis!"
-            [grid]="chartOptions.grid!"
-            [legend]="chartOptions.legend!"
-          ></apx-chart>
-        </div>
-      </section>
-  
-      <!-- Metrics Section -->
-      <section class="metrics-section">
-        <h2>Métricas de Predicción</h2>
-        <div class="metric-card precision">
-          <h3>Precisión del modelo</h3>
-          <p>{{modelPrecision}}%</p>
-        </div>
-        <div class="metric-card error">
-          <h3>Error cuadrático medio</h3>
-          <p>{{meanSquaredError}}</p>
-        </div>
-      </section>
-  
-      <!-- Alerts Section -->
-      <section class="alerts-section">
-        <h2>Alertas de Predicción</h2>
-        <div class="alert-card warning">
-          <h3>Posible Brote en {{alert.region}}</h3>
-          <p>{{alert.message}}</p>
-        </div>
-      </section>
-    </div>
+      </div>
+
+      <button class="apply-filters-btn">
+        Aplicar filtros
+      </button>
+    </section>
+
+    <!-- Chart Section -->
+    <section class="chart-section">
+      <h2>Predicción vs. Casos Reales</h2>
+      <div class="chart-container">
+        <apx-chart
+          [series]="chartOptions.series!"
+          [chart]="chartOptions.chart!"
+          [xaxis]="chartOptions.xaxis!"
+          [stroke]="chartOptions.stroke!"
+          [dataLabels]="chartOptions.dataLabels!"
+          [markers]="chartOptions.markers!"
+          [colors]="chartOptions.colors!"
+          [yaxis]="chartOptions.yaxis!"
+          [grid]="chartOptions.grid!"
+          [legend]="chartOptions.legend!"
+        ></apx-chart>
+      </div>
+    </section>
+
+    <!-- Metrics Section -->
+    <section class="metrics-section">
+      <h2>Métricas de Predicción</h2>
+      <div class="metric-card precision">
+        <h3>Precisión del modelo</h3>
+        <p>{{modelPrecision}}%</p>
+      </div>
+      <div class="metric-card error">
+        <h3>Error cuadrático medio</h3>
+        <p>{{meanSquaredError}}</p>
+      </div>
+    </section>
+
+    <!-- Alerts Section -->
+    <section class="alerts-section">
+      <h2>Alertas de Predicción</h2>
+      <div class="alert-card warning">
+        <h3>Posible Brote en {{alert.region}}</h3>
+        <p>{{alert.message}}</p>
+      </div>
+    </section>
   </div>
+</div>
