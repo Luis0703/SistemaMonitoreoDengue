@@ -1,7 +1,8 @@
 from flask import Blueprint, request, jsonify, make_response
 from utils.db import db
 from models.notificacion import Notificacion
-from schemas.notificacion_schema import notificacion_schema, notificaciones_schema  # Asegúrate de importar el schema
+from schemas.notificacion_schema import notificacion_schema, notificaciones_schema
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 notificacion_routes = Blueprint("notificacion_routes", __name__)
 
@@ -100,19 +101,20 @@ def delete_notificacion(id):
 # Obtener notificaciones recientes
 @notificacion_routes.route('/notificaciones/recientes', methods=['GET'])
 def get_recent_notificaciones():
-    limit = request.args.get('limit', 5, type=int)  # Limitar resultados, por defecto 10
+    limit = request.args.get('limit', 5, type=int)  # Limitar resultados, por defecto 5
     recent_notificaciones = Notificacion.query.order_by(Notificacion.Fecha_Notificacion.desc()).limit(limit).all()
     result = notificaciones_schema.dump(recent_notificaciones)
     return make_response(jsonify({'message': 'Últimas notificaciones', 'status': 200, 'data': result}), 200)
 
-# Obtener notificaciones asociadas a un usuario
+# Obtener notificaciones asociadas a un usuario autenticado (con JWT)
 @notificacion_routes.route('/notificaciones/usuario', methods=['GET'])
+@jwt_required()
 def get_user_notificaciones():
-    user_id = request.args.get('user_id')  # Asume que esto proviene de un token o sesión
-    if not user_id:
-        return make_response(jsonify({'message': 'Usuario no autenticado', 'status': 401}), 401)
-
+    user = get_jwt_identity()  # Obtiene el payload del token
+    user_id = user['id']
     user_notificaciones = Notificacion.query.filter_by(IdUsuario=user_id).all()
     result = notificaciones_schema.dump(user_notificaciones)
     return make_response(jsonify({'message': 'Notificaciones del usuario', 'status': 200, 'data': result}), 200)
+
+
 

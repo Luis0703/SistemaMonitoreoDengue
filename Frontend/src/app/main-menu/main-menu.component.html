@@ -10,6 +10,7 @@
       <li><a href="#">Reportes</a></li>
       <li><a href="#">Acerca de</a></li>
     </ul>
+
     <div class="notifications-container">
       <img src="img/notification.png" alt="Notificaciones" (click)="toggleNotifications()" />
       <div *ngIf="showNotifications" class="notifications-dropdown">
@@ -20,9 +21,17 @@
             <span class="fecha">{{ notificacion.Fecha_Notificacion | date:'shortDate' }}</span>
           </li>
         </ul>
-      </div>      
+      </div>
     </div>
-    <button class="login-button">Login →</button>
+    <div class="auth-container">
+      <span *ngIf="isAuthenticated; else loginTemplate">
+        Bienvenido, {{ user?.nombre }}
+        <button class="logout-button" (click)="logout()">Cerrar sesión</button>
+      </span>
+      <ng-template #loginTemplate>
+        <button class="login-button" routerLink="/login">Login →</button>
+      </ng-template>
+    </div>
   </nav>
 
   <div class="main-content">
@@ -44,11 +53,13 @@
 
     <div class="chart-panel">
       <h2>Tendencia de casos</h2>
-      <canvas baseChart
-        [data]="barChartData"
-        [options]="barChartOptions"
-        [type]="'bar'">
-      </canvas>
+      <div *ngIf="barChartData.datasets[0].data.length > 0">
+        <canvas baseChart
+          [data]="barChartData"
+          [options]="barChartOptions"
+          [type]="'bar'">
+        </canvas>
+     </div>
     </div>
 
     <div class="news-carousel">
@@ -61,13 +72,10 @@
         </div>
         <a [href]="noticias[indiceNoticiaActual]?.url" target="_blank">Leer más</a>
       </div>
-      
+
       <div class="carousel-indicators">
-        <button 
-          *ngFor="let noticia of noticias; let i = index" 
-          class="indicator"
-          [class.active]="i === indiceNoticiaActual"
-          (click)="irANoticia(i)"
+        <button *ngFor="let noticia of noticias; let i = index" class="indicator"
+          [class.active]="i === indiceNoticiaActual" (click)="irANoticia(i)"
           [attr.aria-label]="'Ir a noticia ' + (i + 1)">
         </button>
       </div>

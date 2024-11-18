@@ -1,31 +1,25 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { LoginComponent } from './login/login.component';
+import { CommonModule } from '@angular/common';
+import { Routes } from '@angular/router';
 import { MainMenuComponent } from './main-menu/main-menu.component';
-import { HeatMapComponent } from './heat-map/heat-map.component';
-import { DenguePredictionsComponent } from './dengue-predictions/dengue-predictions.component';
+import { LoginComponent } from './login/login.component';
 
+// Definir las rutas
+const routes: Routes = [
+  { path: '', redirectTo: '/main-menu', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  { path: 'main-menu', component: MainMenuComponent },
+  // Agrega más rutas según sea necesario
+];
 
 @Component({
-    selector: 'app-root',
-    standalone: true,
-    imports: [
-        CommonModule,
-        RouterModule,
-        LoginComponent,
-        MainMenuComponent,
-        HeatMapComponent,
-        DenguePredictionsComponent,
-
-    ],
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss']
+  selector: 'app-root',
+  standalone: true,
+  imports: [CommonModule, RouterModule, MainMenuComponent, LoginComponent],  // Importa componentes necesarios
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-    title = 'SistemaMonitoreoDengue';
-    isLoggedIn = false;
-    onLoginSuccess() {
-        this.isLoggedIn = true;
-    }
+  title = 'SistemaMonitoreoDengue';
 }

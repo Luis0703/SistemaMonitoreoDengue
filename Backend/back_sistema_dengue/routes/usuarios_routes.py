@@ -61,8 +61,13 @@ def login():
     usuario = Usuario.query.filter_by(Nombre=nombre).first()
 
     if usuario and usuario.verificar_contrasena(contrasena):
-        access_token = create_access_token(identity=usuario.IdUsuario)
-        return jsonify({'message': 'Inicio de sesión exitoso', 'status': 200, 'access_token': access_token}), 200
+        # Incluye el nombre del usuario y el IdUsuario en el token
+        access_token = create_access_token(identity={'id': usuario.IdUsuario, 'nombre': usuario.Nombre})
+        return jsonify({
+            'message': 'Inicio de sesión exitoso',
+            'status': 200,
+            'access_token': access_token
+        }), 200
     else:
         return jsonify({'message': 'Nombre de usuario o contraseña incorrectos', 'status': 401}), 401
     

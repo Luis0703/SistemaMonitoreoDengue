@@ -1,5 +1,5 @@
 // src/app/services/auth.service.ts
-
+import { jwtDecode } from 'jwt-decode';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';  // Importa HttpClient
@@ -42,6 +42,16 @@ export class AuthService {
     localStorage.removeItem('access_token');
   }
 
+
+  getUserData(): any {
+    const token = this.getToken();
+    if (!token) {
+      return null;
+    }
+    const decodedToken: any = jwtDecode(token);
+    return decodedToken.sub;
+  }
+
   getDepartamentos(): Observable<any> {
     return this.http.get(`${this.apiUrl}/departamentos`);
   }
@@ -72,5 +82,11 @@ export class AuthService {
   getNotificaciones(limit: number = 5): Observable<any> {
     return this.http.get(`${this.apiUrl}/notificaciones/recientes?limit=${limit}`);
   }
-  
+  getUserNotificaciones(): Observable<any> {
+    const headers = {
+      'Authorization': `Bearer ${this.getToken()}`,
+      'Content-Type': 'application/json'
+    };
+    return this.http.get(`${this.apiUrl}/notificaciones/usuario`, { headers });
+  }
 }
