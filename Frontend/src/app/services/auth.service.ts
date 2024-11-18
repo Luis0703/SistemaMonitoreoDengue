@@ -68,5 +68,9 @@ export class AuthService {
   getConsejos(): Observable<any> {
     return this.http.get(`${this.apiUrl}/consejos`);
   }
+
+  getNotificaciones(limit: number = 5): Observable<any> {
+    return this.http.get(`${this.apiUrl}/notificaciones/recientes?limit=${limit}`);
+  }
   
 }

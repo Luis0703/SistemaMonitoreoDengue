@@ -24,6 +24,8 @@ export class MainMenuComponent implements OnInit {
   noticias: any[] = [];
   consejos: any[] = [];
   indiceNoticiaActual: number = 0;
+  notificaciones: any[] = [];
+  showNotifications: boolean = false;
 
   public barChartData: ChartData<'bar'> = {
     labels: [],
@@ -53,6 +55,22 @@ export class MainMenuComponent implements OnInit {
     this.cargarTendenciaCasos();
     this.cargarNoticias();
     this.cargarConsejos();
+    this.cargarNotificaciones();
+  }
+
+  cargarNotificaciones(): void {
+    this.dataService.getNotificaciones(5).subscribe({
+      next: (data) => {
+        this.notificaciones = data.data; // Ajusta según el formato del backend
+      },
+      error: (err) => {
+        console.error('Error al cargar notificaciones:', err);
+      }
+    });
+  }
+
+  toggleNotifications(): void {
+    this.showNotifications = !this.showNotifications;
   }
 
   cargarResumen(): void {
