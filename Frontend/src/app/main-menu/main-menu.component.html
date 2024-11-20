@@ -23,9 +23,10 @@
         </ul>
       </div>
     </div>
+    
     <div class="auth-container">
       <span *ngIf="isAuthenticated; else loginTemplate">
-        Bienvenido, {{ user?.nombre }}
+        Bienvenido, {{ user?.nombre }}        
         <button class="logout-button" (click)="logout()">Cerrar sesión</button>
       </span>
       <ng-template #loginTemplate>

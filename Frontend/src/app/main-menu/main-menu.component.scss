@@ -39,7 +39,17 @@
     padding: 0.5rem 1rem;
     border-radius: 4px;
     cursor: pointer;
+
+    &:hover {
+      background-color: #05450b; // Cambia de color al pasar el cursor.
+    }
   }
+}
+
+.auth-container {
+  display: flex;
+  align-items: center; // Asegura la alineación vertical de los elementos.
+  gap: 1rem; // Añade un espacio de 1rem entre los elementos (ajusta si es necesario).
 }
 
 .notifications-container {

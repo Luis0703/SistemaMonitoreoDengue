@@ -18,7 +18,11 @@
         margin: 0 1rem;
         text-decoration: none;
         color: #333;
+        &:hover {
+          color: #4caf50;
+        }
       }
+
     }
 
     .login-btn {
