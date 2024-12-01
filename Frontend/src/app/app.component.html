@@ -1,3 +1,4 @@
 <div class="app-container">
+  <app-header *ngIf="showHeader" [isAuthenticated]="isAuthenticated" [user]="user"></app-header>  <!-- Mostrar encabezado solo si showHeader es true -->
   <router-outlet></router-outlet> <!-- Aquí se cargan las vistas según la ruta -->
 </div>

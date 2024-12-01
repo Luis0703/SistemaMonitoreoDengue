@@ -1,0 +1,37 @@
+<div class="dashboard-container">
+  <nav class="navbar">
+    <div class="logo">
+      SAVID
+    </div>
+    <ul class="nav-links">
+      <li><a routerLink="/main-menu">Inicio</a></li>
+      <li><a routerLink="/heat-map">Mapa de Calor</a></li>
+      <li><a routerLink="/dengue-predictions">Predicciones</a></li>
+      <li><a href="#">Reportes</a></li>
+      <li><a href="#">Acerca de</a></li>
+    </ul>
+
+    <div class="notifications-container">
+      <img src="img/notification.png" alt="Notificaciones" (click)="toggleNotifications()" />
+      <div *ngIf="showNotifications" class="notifications-dropdown">
+        <h3>Notificaciones</h3>
+        <ul>
+          <li *ngFor="let notificacion of notificaciones" [ngClass]="'tipo-' + notificacion.Tipo_Notificacion">
+            <span>{{ notificacion.Mensaje }}</span>
+            <span class="fecha">{{ notificacion.Fecha_Notificacion | date:'shortDate' }}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="auth-container">
+      <span *ngIf="isAuthenticated; else loginTemplate">
+        Bienvenido, {{ user?.nombre }}        
+        <button class="logout-button" (click)="logout()">Cerrar sesión</button>
+      </span>
+      <ng-template #loginTemplate>
+        <button class="login-button" routerLink="/login">Login →</button>
+      </ng-template>
+    </div>
+  </nav>
+</div>

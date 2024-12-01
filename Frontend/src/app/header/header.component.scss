@@ -1,0 +1,134 @@
+.dashboard-container {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .nav-links {
+    display: flex;
+    list-style-type: none;
+
+    li {
+      margin: 0 1rem;
+
+      a {
+        text-decoration: none;
+        color: #333;
+
+        &:hover {
+          color: #4caf50;
+        }
+      }
+    }
+  }
+
+  .login-button,
+  .logout-button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #05450b; // Cambia de color al pasar el cursor.
+    }
+  }
+}
+
+.auth-container {
+  display: flex;
+  align-items: center; // Asegura la alineación vertical de los elementos.
+  gap: 1rem; // Añade un espacio de 1rem entre los elementos (ajusta si es necesario).
+}
+
+.notifications-container {
+  position: relative;
+  display: inline-block;
+
+  img {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+  }
+
+  .notifications-dropdown {
+    position: absolute;
+    top: 30px;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 300px;
+    max-height: 400px;
+    overflow-y: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+
+    h3 {
+      margin: 0;
+      padding: 0 0 10px 0;
+      border-bottom: 1px solid #ddd;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        padding: 5px 0;
+        border-bottom: 1px solid #f5f5f5;
+
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+}
+
+.notifications-dropdown ul li {
+  padding: 5px;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  flex-direction: column;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &.tipo-1 {
+    background-color: #ffe6e6; /* Rojo claro para emergencia */
+    color: #a02a26;
+  }
+
+  &.tipo-2 {
+    background-color: #fff8e6; /* Amarillo claro para advertencia */
+    color: #d38c28;
+  }
+
+  &.tipo-3 {
+    background-color: #e6f7ff; /* Azul claro para información */
+    color: #1d7995;
+  }
+
+  .fecha {
+    font-size: 0.8em;
+    color: #777;
+  }
+}

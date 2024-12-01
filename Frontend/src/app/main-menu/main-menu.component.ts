@@ -52,18 +52,6 @@ export class MainMenuComponent implements OnInit {
   constructor(private dataService: AuthService) {}
 
   ngOnInit(): void {
-    this.isAuthenticated = this.dataService.isAuthenticated(); // Verifica si hay un token
-  
-    if (this.isAuthenticated) {
-      this.user = this.dataService.getUserData(); // Obtén los datos del usuario desde el token
-      console.log('Usuario autenticado:', this.user); // Debug
-      this.cargarNotificacionesUsuario(); // Carga notificaciones específicas
-    } else {
-      console.log('Usuario no autenticado: navegación libre');
-      this.cargarNotificaciones(); // Carga notificaciones generales (opcional, si quieres mostrar algo general)
-    }
-  
-    // Carga otras funcionalidades disponibles para ambos casos
     this.cargarResumen();
     this.cargarTendenciaCasos();
     this.cargarNoticias();
